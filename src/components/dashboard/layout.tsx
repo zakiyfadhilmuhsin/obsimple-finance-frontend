@@ -5,6 +5,7 @@ import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { 
@@ -109,7 +110,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               {/* <h1 className="text-xl font-semibold text-gray-900">
                 Dashboard Keuangan Shopee
               </h1> */}
-              <img src='/images/logo-reverse.png' alt='obsimple-logo' width={110} />
+              <Image src='/images/logo-reverse.png' alt='obsimple-logo' width={110} height={40} />
             </div>
             
             <div className="flex items-center space-x-4">

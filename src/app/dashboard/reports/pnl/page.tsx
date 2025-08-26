@@ -31,7 +31,8 @@ import {
   CheckCircle,
   Filter,
   Download,
-  Eye
+  Eye,
+  Info
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -198,7 +199,7 @@ export default function PnLReportPage() {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-2xl font-bold">Laporan Laba Rugi</h1>
-            <p className="text-gray-600">Analisis profitabilitas berdasarkan status pesanan dan periode waktu</p>
+            <p className="text-gray-600">Analisis profitabilitas berdasarkan revenue dari item prices dan marketplace fees yang akurat</p>
           </div>
           <div className="flex space-x-2">
             <Button variant="outline" onClick={exportToCSV}>
@@ -270,6 +271,21 @@ export default function PnLReportPage() {
             </div>
           </CardContent>
         </Card>
+
+         {/* Info Alert */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="flex items-start space-x-3">
+            <Info className="h-5 w-5 text-blue-600 mt-0.5" />
+            <div>
+              <h3 className="font-medium text-blue-900">Perhitungan Laba Rugi Yang Diperbaiki</h3>
+              <div className="text-sm text-blue-800 mt-1">
+                <p><strong>Revenue:</strong> Dihitung dari sum (unit price × quantity) per item, bukan dari Order.totalAmount</p>
+                <p><strong>Marketplace Fees:</strong> Hanya 4 fee wajib: Commission, Service, Processing, dan AMS (jika ada)</p>
+                <p><strong>Net Profit:</strong> Gross Profit - Marketplace Fees (tidak termasuk shipping, transaction dll)</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -351,7 +367,7 @@ export default function PnLReportPage() {
                     Rp {summary.totalFees.toLocaleString('id-ID')}
                   </p>
                   <p className="text-xs text-gray-500">
-                    Platform & transaksi
+                    Marketplace fees (4 wajib)
                   </p>
                 </div>
               </div>

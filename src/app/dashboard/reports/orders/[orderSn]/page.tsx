@@ -44,11 +44,11 @@ interface OrderCostDetail {
   orderCosts: {
     totalRevenue: number;
     totalProductCost: number;
+    // 4 Marketplace fees wajib (sesuai backend baru)
     commissionFee: number;
     serviceFee: number;
-    transactionFee: number;
-    shippingFee: number;
-    paymentChannelFee: number;
+    sellerOrderProcessingFee: number;
+    orderAmsCommissionFee: number;
     grossProfit: number;
     netProfit: number;
     grossMargin: number;
@@ -119,9 +119,8 @@ export default function OrderCostDetailPage() {
       ['Product Cost', data.orderCosts.totalProductCost],
       ['Commission Fee', data.orderCosts.commissionFee],
       ['Service Fee', data.orderCosts.serviceFee],
-      ['Transaction Fee', data.orderCosts.transactionFee],
-      ['Shipping Fee', data.orderCosts.shippingFee],
-      ['Payment Channel Fee', data.orderCosts.paymentChannelFee],
+      ['Seller Processing Fee', data.orderCosts.sellerOrderProcessingFee],
+      ['AMS Commission Fee', data.orderCosts.orderAmsCommissionFee],
       ['Gross Profit', data.orderCosts.grossProfit],
       ['Net Profit', data.orderCosts.netProfit],
       ['Gross Margin %', data.orderCosts.grossMargin.toFixed(2)],
@@ -401,7 +400,7 @@ export default function OrderCostDetailPage() {
         <Card>
           <CardHeader>
             <CardTitle>Order-Level Cost Breakdown</CardTitle>
-            <CardDescription>Platform fees and operational costs</CardDescription>
+            <CardDescription>Revenue calculation dari sum item prices. Marketplace fees hanya 4 fee wajib untuk analisis yang akurat.</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -425,25 +424,30 @@ export default function OrderCostDetailPage() {
                       <span>Product Cost (HPP)</span>
                       <span>Rp {data.orderCosts.totalProductCost.toLocaleString('id-ID')}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span>Commission Fee</span>
-                      <span>Rp {data.orderCosts.commissionFee.toLocaleString('id-ID')}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Service Fee</span>
-                      <span>Rp {data.orderCosts.serviceFee.toLocaleString('id-ID')}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Transaction Fee</span>
-                      <span>Rp {data.orderCosts.transactionFee.toLocaleString('id-ID')}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Shipping Fee</span>
-                      <span>Rp {data.orderCosts.shippingFee.toLocaleString('id-ID')}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Payment Channel Fee</span>
-                      <span>Rp {data.orderCosts.paymentChannelFee.toLocaleString('id-ID')}</span>
+                    
+                    {/* Marketplace Fees (Hanya 4 Fee Wajib) */}
+                    <div className="pt-2 border-t border-gray-200">
+                      <div className="flex justify-between text-sm text-gray-600 mb-1">
+                        <span>Marketplace Fees:</span>
+                      </div>
+                      <div className="flex justify-between pl-4">
+                        <span>• Commission Fee</span>
+                        <span>Rp {data.orderCosts.commissionFee.toLocaleString('id-ID')}</span>
+                      </div>
+                      <div className="flex justify-between pl-4">
+                        <span>• Service Fee</span>
+                        <span>Rp {data.orderCosts.serviceFee.toLocaleString('id-ID')}</span>
+                      </div>
+                      <div className="flex justify-between pl-4">
+                        <span>• Processing Fee</span>
+                        <span>Rp {data.orderCosts.sellerOrderProcessingFee.toLocaleString('id-ID')}</span>
+                      </div>
+                      {data.orderCosts.orderAmsCommissionFee > 0 && (
+                        <div className="flex justify-between pl-4">
+                          <span>• AMS Commission</span>
+                          <span>Rp {data.orderCosts.orderAmsCommissionFee.toLocaleString('id-ID')}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
